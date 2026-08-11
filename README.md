@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Loja de iPhone — demo comercial
 
-## Getting Started
+E-commerce premium de iPhones (demo para apresentação a clientes): hero com
+vídeo de unboxing controlado pelo scroll, catálogo de iPhones/Mac/iPad/acessórios,
+carrinho frontend, checkout de lead com campo condicional de repasse e conversão
+via WhatsApp.
 
-First, run the development server:
+Stack: Next.js 16 · React · TypeScript · Tailwind CSS v4.
+
+## Rodar
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Adaptar para um cliente
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todo o conteúdo trocável fica fora dos componentes:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| O quê                       | Onde                                    |
+| --------------------------- | --------------------------------------- |
+| Nome, WhatsApp, Instagram, endereço, horário | `config/store.ts`      |
+| Produtos, preços, descrições | `data/products.ts`                     |
+| Fotos de produto            | `public/images/products/`               |
+| Fotos do Instagram          | `public/images/instagram/`              |
+| Fachada da loja             | `public/images/store/fachada.webp`      |
+| Vídeo do hero               | `public/videos/iphone-unboxing.mp4`     |
+| Poster/OG                   | `public/images/hero-poster.jpg`, `public/images/og.jpg` |
 
-## Learn More
+O layout não precisa ser tocado.
 
-To learn more about Next.js, take a look at the following resources:
+> O vídeo do hero é scrubado pelo scroll: re-encode qualquer vídeo novo com
+> `ffmpeg -i in.mp4 -an -c:v libx264 -preset slow -crf 26 -g 1 -pix_fmt yuv420p -movflags +faststart out.mp4`
+> (`-g 1` = todo frame vira keyframe; sem isso o seek engasga).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verificação visual
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build && npx next start -p 3199
+node scripts/verifica.mjs http://localhost:3199
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Gera screenshots desktop + mobile de todas as seções (incluindo o scrub do
+hero em 5 posições e o fluxo carrinho → checkout → WhatsApp) em `.artifacts/`.
