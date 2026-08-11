@@ -101,7 +101,7 @@ export default function ProductModal() {
                 <span className="text-xl font-semibold">{formatPrice(selected.price)}</span>
                 <button
                   type="button"
-                  onClick={() => addItem(selected)}
+                  onClick={() => addItem(selected, true)}
                   className="rounded-full bg-ink px-7 py-3 text-sm font-medium text-white transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
                 >
                   Adicionar à sacola

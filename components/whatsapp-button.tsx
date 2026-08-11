@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Conversar no WhatsApp"
-      className="glass group fixed bottom-5 right-5 z-40 flex h-12 items-center overflow-hidden rounded-full text-ink shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:scale-[1.04] hover:shadow-[0_12px_36px_rgba(0,0,0,0.16)]"
+      className="glass group ring-breathe fixed bottom-5 right-5 z-40 flex h-12 items-center overflow-hidden rounded-full text-ink shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:scale-[1.04] hover:shadow-[0_12px_36px_rgba(0,0,0,0.16)]"
     >
       <span className="flex h-12 w-12 shrink-0 items-center justify-center">
         <WhatsAppGlyph className="h-5 w-5 text-[#25D366]" />

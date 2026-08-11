@@ -80,7 +80,10 @@ export default function ProductSection({
           </Reveal>
         )}
 
-        <div className={`mt-10 grid grid-cols-2 gap-3 md:gap-6 ${desktopCols}`}>
+        <div
+          key={withConditionFilter ? filter : undefined}
+          className={`grid-in mt-10 grid grid-cols-2 gap-3 md:gap-6 ${desktopCols}`}
+        >
           {visible.map((product, i) => (
             <Reveal key={product.id} delay={Math.min(i, 3) * 60}>
               <ProductCard product={product} />

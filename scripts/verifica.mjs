@@ -63,6 +63,9 @@ async function fluxoCarrinho(pagina, prefixo) {
   await pagina.waitForTimeout(600);
   const botoes = pagina.locator("#iphones article button", { hasText: "Adicionar" });
   await botoes.nth(0).click();
+  await pagina.waitForTimeout(400);
+  // o card dá feedback sem abrir o drawer — abre pela sacola da navbar
+  await pagina.locator("header button[aria-label^='Abrir sacola']").click();
   await pagina.waitForTimeout(700);
   await pagina.screenshot({ path: `${SAIDA}/${prefixo}-carrinho.png` });
 

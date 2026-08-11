@@ -79,7 +79,10 @@ export default function Navbar() {
           >
             <BagIcon />
             {count > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-ink px-1 text-[10px] font-semibold text-white">
+              <span
+                key={count}
+                className="badge-pop absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-ink px-1 text-[10px] font-semibold text-white"
+              >
                 {count}
               </span>
             )}

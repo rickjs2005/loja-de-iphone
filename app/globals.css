@@ -70,6 +70,81 @@ body {
   }
 }
 
+/* entrada do hero — texto sobe em cascata no primeiro paint */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* pop do contador da sacola quando um item entra */
+@keyframes badge-pop {
+  0% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.badge-pop {
+  animation: badge-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* troca de filtro — o grid re-entra suave */
+@keyframes grid-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.grid-in {
+  animation: grid-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* anel de respiro do botão do WhatsApp — bem lento e quase invisível */
+@keyframes ring-breathe {
+  0%,
+  100% {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(37, 211, 102, 0.25);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 0 0 7px rgba(37, 211, 102, 0);
+  }
+}
+
+.ring-breathe {
+  animation: ring-breathe 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .badge-pop,
+  .grid-in,
+  .ring-breathe {
+    animation: none;
+    opacity: 1;
+  }
+}
+
 /* esconde a barra de rolagem em trilhos horizontais de filtro */
 .no-scrollbar {
   scrollbar-width: none;

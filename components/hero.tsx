@@ -57,6 +57,8 @@ export default function Hero() {
       if (Number.isFinite(duration) && duration > 0) {
         video.currentTime = current * Math.max(0, duration - 0.05);
       }
+      // zoom quase imperceptível conforme a caixa abre — dá vida cinematográfica
+      video.style.transform = `scale(${1 + current * 0.04})`;
       raf = requestAnimationFrame(tick);
     };
 
@@ -110,17 +112,23 @@ export default function Hero() {
 
         {/* texto editorial */}
         <div className="absolute inset-x-0 bottom-0 px-6 pb-10 md:inset-auto md:left-[7vw] md:top-1/2 md:-translate-y-1/2 md:max-w-md md:p-0">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink-soft">
+          <p className="hero-rise text-[11px] font-medium uppercase tracking-[0.28em] text-ink-soft">
             Novos e seminovos · Garantia da loja
           </p>
-          <h1 className="mt-4 text-4xl font-semibold leading-[1.06] tracking-[-0.03em] md:text-[3.4rem]">
+          <h1
+            className="hero-rise mt-4 text-4xl font-semibold leading-[1.06] tracking-[-0.03em] md:text-[3.4rem]"
+            style={{ animationDelay: "120ms" }}
+          >
             Seu próximo iPhone começa aqui.
           </h1>
-          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p
+            className="hero-rise mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft"
+            style={{ animationDelay: "240ms" }}
+          >
             Lacrado na caixa ou seminovo revisado — testado, garantido e pronto
             pra sair da loja com você.
           </p>
-          <div className="mt-8 flex items-center gap-3">
+          <div className="hero-rise mt-8 flex items-center gap-3" style={{ animationDelay: "360ms" }}>
             <a
               href="#iphones"
               className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-white transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"

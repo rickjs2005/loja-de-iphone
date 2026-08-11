@@ -17,7 +17,7 @@ type CartContextValue = {
   items: CartItem[];
   count: number;
   subtotal: number;
-  addItem: (product: Product) => void;
+  addItem: (product: Product, openDrawer?: boolean) => void;
   removeItem: (id: string) => void;
   setQty: (id: string, qty: number) => void;
   clear: () => void;
@@ -82,7 +82,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
   }, [isCartOpen, selected]);
 
-  const addItem = useCallback((product: Product) => {
+  const addItem = useCallback((product: Product, openDrawer = false) => {
     setItems((prev) => {
       const existing = prev.find((i) => i.product.id === product.id);
       if (existing) {
@@ -92,8 +92,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { product, qty: 1 }];
     });
-    setSelected(null);
-    setCartOpen(true);
+    if (openDrawer) {
+      setSelected(null);
+      setCartOpen(true);
+    }
   }, []);
 
   const removeItem = useCallback((id: string) => {

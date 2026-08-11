@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Product } from "@/data/products";
 import { formatPrice } from "@/lib/format";
@@ -14,6 +15,14 @@ export default function ProductCard({
 }) {
   const { addItem, openProduct } = useCart();
   const isIphone = product.category === "iphone";
+  const [added, setAdded] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, []);
 
   return (
     <article
@@ -60,10 +69,13 @@ export default function ProductCard({
             onClick={(e) => {
               e.stopPropagation();
               addItem(product);
+              setAdded(true);
+              if (timer.current) clearTimeout(timer.current);
+              timer.current = setTimeout(() => setAdded(false), 1400);
             }}
             className="w-full rounded-full bg-ink px-4 py-2.5 text-[12px] font-medium text-white transition-transform duration-300 hover:scale-[1.04] active:scale-[0.97] md:w-auto md:py-2 md:text-[13px]"
           >
-            Adicionar
+            {added ? "Adicionado ✓" : "Adicionar"}
           </button>
         </div>
       </div>
