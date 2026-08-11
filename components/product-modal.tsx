@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { formatPrice } from "@/lib/format";
+import { formatPrice, installmentLabel } from "@/lib/format";
 import { useCart } from "@/components/cart-context";
 
 export default function ProductModal() {
@@ -97,8 +97,13 @@ export default function ProductModal() {
                 </ul>
               )}
 
-              <div className="mt-auto flex items-center justify-between gap-4 pt-8">
-                <span className="text-xl font-semibold">{formatPrice(selected.price)}</span>
+              <div className="mt-auto flex items-end justify-between gap-4 pt-8">
+                <div>
+                  <span className="text-xl font-semibold">{formatPrice(selected.price)}</span>
+                  <p className="mt-0.5 text-[12px] text-ink-soft">
+                    ou {installmentLabel(selected.price)}
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={() => addItem(selected, true)}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { store } from "@/config/store";
 import Reveal from "@/components/reveal";
+import CountUp from "@/components/count-up";
 
 const posts = [
   { src: "/images/instagram/post-5.webp", alt: "iPhone 17 Pro lacrado na bancada da loja" },
@@ -20,16 +21,30 @@ export default function InstagramSection() {
             <div className="flex items-center gap-4">
               <span
                 aria-hidden
-                className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-lg font-semibold tracking-[0.08em] text-white"
+                className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white"
               >
-                LI
+                <svg width="22" height="24" viewBox="0 0 18 20" fill="none">
+                  <path
+                    d="M3 6h12l-.85 11.08A2 2 0 0 1 12.16 19H5.84a2 2 0 0 1-1.99-1.92L3 6Z"
+                    stroke="currentColor"
+                    strokeWidth="1.3"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M6 8V4.5a3 3 0 0 1 6 0V8"
+                    stroke="currentColor"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </span>
               <div>
                 <h2 className="text-xl font-semibold tracking-[-0.02em]">
                   {store.instagram.handle}
                 </h2>
                 <p className="mt-0.5 text-[13px] text-ink-soft">
-                  {store.instagram.followers} seguidores · {store.address.city}
+                  <CountUp to={12.4} decimals={1} suffix=" mil" /> seguidores ·{" "}
+                  {store.address.city}
                 </p>
               </div>
             </div>

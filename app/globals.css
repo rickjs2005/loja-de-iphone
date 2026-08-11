@@ -145,6 +145,29 @@ body {
   }
 }
 
+/* grão fotográfico quase invisível sobre a página inteira —
+   tira o "branco chapado" sem chamar atenção */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* spotlight de estúdio atrás do produto no card */
+.card-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 38%, rgba(255, 255, 255, 0.32), transparent 62%),
+    radial-gradient(ellipse 130% 110% at 50% 50%, transparent 58%, rgba(0, 0, 0, 0.055) 100%);
+}
+
 /* esconde a barra de rolagem em trilhos horizontais de filtro */
 .no-scrollbar {
   scrollbar-width: none;

@@ -28,6 +28,11 @@ export const store = {
 
   hours: "Seg a Sáb · 9h às 18h",
 
+  stats: {
+    devicesSold: 300,
+    since: "2019",
+  },
+
   legal: "Produtos e preços apresentados nesta demonstração são ilustrativos.",
 } as const;
 

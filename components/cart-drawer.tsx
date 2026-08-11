@@ -141,7 +141,10 @@ export default function CartDrawer() {
                   <span className="text-ink-soft">Subtotal</span>
                   <span className="text-lg font-semibold">{formatPrice(subtotal)}</span>
                 </div>
-                <p className="mt-1 text-[12px] text-ink-soft">
+                <p className="mt-0.5 text-[12px] text-ink-soft">
+                  em até 12x sem juros no cartão
+                </p>
+                <p className="mt-2 text-[12px] text-ink-soft">
                   Você finaliza o atendimento pelo WhatsApp, do seu jeito.
                 </p>
                 <button

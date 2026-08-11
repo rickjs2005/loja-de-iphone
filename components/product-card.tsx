@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import type { Product } from "@/data/products";
-import { formatPrice } from "@/lib/format";
+import { formatPrice, installmentLabel } from "@/lib/format";
 import { useCart } from "@/components/cart-context";
 
 export default function ProductCard({
@@ -17,19 +17,42 @@ export default function ProductCard({
   const isIphone = product.category === "iphone";
   const [added, setAdded] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cardRef = useRef<HTMLElement>(null);
+  const canTilt = useRef(false);
 
   useEffect(() => {
+    canTilt.current =
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     return () => {
       if (timer.current) clearTimeout(timer.current);
     };
   }, []);
 
+  // tilt 3D sutil seguindo o cursor — só desktop
+  function handleMove(e: MouseEvent) {
+    const el = cardRef.current;
+    if (!el || !canTilt.current) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(900px) rotateX(${(-py * 3.5).toFixed(2)}deg) rotateY(${(px * 3.5).toFixed(2)}deg) translateY(-4px)`;
+  }
+
+  function handleLeave() {
+    const el = cardRef.current;
+    if (el) el.style.transform = "";
+  }
+
   return (
     <article
-      className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white/60 shadow-[0_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-sm transition-[transform,box-shadow] duration-400 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+      ref={cardRef}
+      className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white/60 shadow-[0_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-sm transition-[transform,box-shadow] duration-300 ease-out will-change-transform hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
       onClick={() => openProduct(product)}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="card-spotlight relative aspect-square overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
@@ -39,7 +62,7 @@ export default function ProductCard({
           className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
         {isIphone && product.condition === "used" && (
-          <span className="glass absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink">
+          <span className="glass absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink">
             Seminovo
           </span>
         )}
@@ -61,9 +84,14 @@ export default function ProductCard({
         </p>
 
         <div className="mt-4 flex flex-1 flex-col justify-end gap-3 md:flex-row md:items-end md:justify-between md:gap-2">
-          <span className="text-[15px] font-semibold md:text-base">
-            {formatPrice(product.price)}
-          </span>
+          <div>
+            <span className="text-[15px] font-semibold md:text-base">
+              {formatPrice(product.price)}
+            </span>
+            <p className="mt-0.5 whitespace-nowrap text-[11px] text-ink-soft">
+              {installmentLabel(product.price)}
+            </p>
+          </div>
           <button
             type="button"
             onClick={(e) => {

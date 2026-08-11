@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { store } from "@/config/store";
 import { contactMessage, whatsappUrl } from "@/lib/whatsapp";
+import CountUp from "@/components/count-up";
 
 const VIDEO_SRC = "/videos/iphone-unboxing.mp4";
 const POSTER_SRC = "/images/hero-poster.jpg";
@@ -144,6 +145,13 @@ export default function Hero() {
               Falar no WhatsApp
             </a>
           </div>
+          <p
+            className="hero-rise mt-6 text-[12px] text-ink-soft"
+            style={{ animationDelay: "480ms" }}
+          >
+            <CountUp to={store.stats.devicesSold} prefix="+" duration={1800} /> iPhones
+            entregues · Desde {store.stats.since}
+          </p>
         </div>
 
         {/* dica de rolagem — o scroll abre a caixa */}
