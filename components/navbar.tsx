@@ -35,9 +35,11 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-[background,box-shadow,border-color] duration-500 ${
-        scrolled
-          ? "glass shadow-[0_1px_0_rgba(0,0,0,0.04)]"
-          : "border-b border-transparent bg-white/55 backdrop-blur-md"
+        menuOpen
+          ? "border-b border-black/5 bg-white"
+          : scrolled
+            ? "glass shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+            : "border-b border-transparent bg-white/55 backdrop-blur-md"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
@@ -112,7 +114,7 @@ export default function Navbar() {
 
       {/* menu mobile */}
       <div
-        className={`glass fixed inset-x-0 top-16 bottom-0 z-30 flex flex-col px-8 pt-10 transition-[opacity,transform] duration-400 md:hidden ${
+        className={`fixed inset-x-0 top-16 bottom-0 z-30 flex flex-col bg-white px-8 pt-10 transition-[opacity,transform] duration-400 md:hidden ${
           menuOpen ? "opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
         }`}
       >

@@ -32,13 +32,19 @@ export default function Hero() {
     const video = videoRef.current;
     if (!section || !video || videoFailed) return;
 
-    // sem scrub: deixa o vídeo rodar sozinho como fallback acessível
-    if (reducedMotion) {
+    // mobile ou reduced-motion: sem scrub — autoplay em loop.
+    // (iOS não decodifica frame de vídeo sem play(); scrub por currentTime
+    // deixa o hero em branco no aparelho real. Lição do ALVA.)
+    const desktop = window.matchMedia("(min-width: 768px)").matches;
+    if (!desktop || reducedMotion) {
       video.loop = true;
+      const retry = () => video.play().catch(() => {});
       video.play().catch(() => {
-        /* autoplay bloqueado — fica no poster */
+        // autoplay bloqueado (ex.: modo economia de bateria) — poster segura
+        // a cena e o primeiro toque destrava o vídeo
+        window.addEventListener("touchstart", retry, { once: true, passive: true });
       });
-      return;
+      return () => window.removeEventListener("touchstart", retry);
     }
 
     let target = 0;
@@ -78,7 +84,11 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className={reducedMotion ? "relative" : "relative h-[280vh]"}
+      className={
+        // o pin de 280vh só existe no desktop — no mobile o vídeo roda em
+        // loop e a página segue direto pro catálogo
+        reducedMotion ? "relative" : "relative md:h-[280vh]"
+      }
       aria-label="Apresentação da loja"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-white">
