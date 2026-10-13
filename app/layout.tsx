@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://loja-de-iphone.vercel.app"),
+  metadataBase: new URL("https://loja-de-iphone-demo.vercel.app"),
   title: "Loja de iPhone | iPhones, Mac, iPad e Acessórios",
   description:
     "iPhones novos e seminovos com garantia, Mac, iPad e acessórios. Atendimento direto pelo WhatsApp.",

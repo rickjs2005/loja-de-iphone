@@ -49,7 +49,7 @@ async function secoes(pagina, prefixo) {
   // instagram fica entre acessorios e a-loja — captura via âncora do texto
   await pagina.evaluate(() => {
     const el = [...document.querySelectorAll("h2")].find((h) =>
-      h.textContent?.includes("@lojadeiphone"),
+      h.textContent?.includes("@sua.loja"),
     );
     el?.scrollIntoView({ block: "center" });
   });

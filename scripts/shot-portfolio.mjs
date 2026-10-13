@@ -1,6 +1,10 @@
+import { mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 import { chromium } from "playwright";
 
-const OUT = "C:/Users/rickj/projetos/milweb/public/shots/loja-de-iphone.webp";
+// Uso: node scripts/shot-portfolio.mjs [saida.png]
+const OUT = process.argv[2] ?? ".artifacts/loja-de-iphone.png";
+mkdirSync(dirname(OUT), { recursive: true });
 
 const b = await chromium.launch();
 const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
@@ -39,6 +43,6 @@ await p.evaluate(
 );
 // dá tempo do contador "+N iPhones entregues" (1.8s) terminar de contar
 await p.waitForTimeout(2000);
-await p.screenshot({ path: OUT.replace(".webp", ".png") });
+await p.screenshot({ path: OUT });
 await b.close();
 console.log("OK", OUT);

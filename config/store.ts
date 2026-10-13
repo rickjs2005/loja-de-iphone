@@ -8,19 +8,21 @@ export const store = {
   tagline: "iPhones novos e seminovos, com garantia da loja.",
 
   whatsapp: {
-    // formato internacional, só dígitos — usado no wa.me
-    number: "5533987654321",
-    display: "+55 33 98765-4321",
+    // formato internacional, só dígitos — usado no wa.me.
+    // Número fictício e inválido (demo): troque pelo WhatsApp real do cliente.
+    number: "5511000000000",
+    display: "(11) 0000-0000",
   },
 
   instagram: {
-    handle: "@lojadeiphone",
-    url: "https://instagram.com/lojadeiphone",
+    handle: "@sua.loja",
+    // Placeholder (demo): não aponta para nenhuma conta real.
+    url: "https://www.instagram.com/",
     followers: "12,4 mil",
   },
 
   address: {
-    street: "Rua Vicente de Flores de Fucio, 288",
+    street: "Centro",
     city: "Santana do Manhuaçu",
     state: "MG",
     cep: "36940-000",
@@ -33,7 +35,8 @@ export const store = {
     since: "2019",
   },
 
-  legal: "Produtos e preços apresentados nesta demonstração são ilustrativos.",
+  legal:
+    "Demonstração fictícia, sem afiliação com a Apple Inc. Apple, iPhone, iPad, Mac, AirPods e Apple Watch são marcas da Apple Inc. Produtos, preços e contatos apresentados são ilustrativos.",
 } as const;
 
 export const fullAddress = `${store.address.street}, ${store.address.city} - ${store.address.state}, ${store.address.cep}`;
